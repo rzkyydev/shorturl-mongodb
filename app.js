@@ -142,13 +142,13 @@ console.log(rel+'\n'+tum)
     })
 
     db.insert({
-        red,
-        rel,
+        id: red,
+        url: rel,
         delete: del
     }).then(() => res.status(200).json({
         status: true,
         result: {
-            red,
+            id: red,
             delete: del
         }
     })).catch((err) => {
