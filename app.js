@@ -107,7 +107,6 @@ app.get('/create', async (req, res) => {
         delete: delete_id
     }).then(() => res.status(200).json({
         status: true,
-        message: "Created by aqulzz",
         result: {
             id,
             delete: delete_id
