@@ -107,8 +107,8 @@ app.get('/create', async (req, res) => {
     }).then(() => res.status(200).json({
         status: true,
         result: {
-            id,
-            delete: delete_id
+            id: 'https://sl.rzkyfdlh.tech/'+red,
+            delete: 'https://sl.rzkyfdlh.tech/'+delete_id
         }
     })).catch((err) => {
         console.log(err)
