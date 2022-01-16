@@ -77,7 +77,7 @@ app.get('/:id', async (req, res, next) => {
     })
 })
 
-app.get('/create', async (req, res) => {
+app.use('/create', async (req, res) => {
     const url = req.body.url,
         costum = req.body.costum
 
