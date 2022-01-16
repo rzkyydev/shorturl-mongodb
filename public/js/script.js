@@ -51,7 +51,7 @@ $('#form-input').submit(function (e) {
     btn_kirim.classList.toggle('d-none');
     $.ajax({
         type: "POST",
-        url: base_url + '/create',
+        url: base_url + '/create2',
         timeout: 30000,
         data: {
             url: $('#url').val(),
