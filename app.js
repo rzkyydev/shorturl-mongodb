@@ -107,7 +107,7 @@ app.get('/create', async (req, res) => {
     }).then(() => res.status(200).json({
         status: true,
         result: {
-            id: 'https://sl.rzkyfdlh.tech/'+id,
+            url: 'https://sl.rzkyfdlh.tech/'+id,
             delete: 'https://sl.rzkyfdlh.tech/'+delete_id
         }
     })).catch((err) => {
