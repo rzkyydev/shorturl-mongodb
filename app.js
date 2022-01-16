@@ -80,7 +80,6 @@ app.get('/:id', async (req, res, next) => {
 app.get('/create', async (req, res) => {
     const url = req.query.url,
         costum = req.query.costum
- console.log(req)
 
     if (!url) return res.status(400).json({
         status: false,
@@ -110,6 +109,47 @@ app.get('/create', async (req, res) => {
         result: {
             id,
             delete: delete_id
+        }
+    })).catch((err) => {
+        console.log(err)
+        res.status(500).json({
+            status: false,
+            message: "Internal server error"
+        })
+    })
+})
+app.post('/create', async (req, res) => {
+    const rel = req.query.url,
+        tum = req.query.costum
+
+    if (!rel) return res.status(400).json({
+        status: false,
+        message: "Masukkan parameter url"
+    })
+
+    if (!isUrl(rel)) return res.status(400).json({
+        status: false,
+        message: "Harap masukkan url parameter yang valid"
+    })
+    const red = tum ? tum : makeid(6)
+    const del = makeid(18)
+    const cr = await db.findOne({
+        red
+    })
+    if (cr) return res.status(400).json({
+        status: false,
+        message: "Id tersebut sudah ada, silahkan coba lagi atau ganti dengan yang lain"
+    })
+
+    db.insert({
+        red,
+        rel,
+        delete: del
+    }).then(() => res.status(200).json({
+        status: true,
+        result: {
+            red,
+            delete: del
         }
     })).catch((err) => {
         console.log(err)
