@@ -134,7 +134,7 @@ console.log(rel+'\n'+tum)
     const red = tum ? tum : makeid(6)
     const del = makeid(18)
     const cr = await db.findOne({
-        red
+        id: red
     })
     if (cr) return res.status(400).json({
         status: false,
