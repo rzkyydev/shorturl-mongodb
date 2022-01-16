@@ -1,80 +1,210 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="en" >
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>CodePen - Pure CSS Glassmorphism Login Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <title>Pure CSS Glassmorphism Login Form</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
-    <!-- Ajax -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+body{
+  background-color: #080710;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background-size: cover;
+}
+a{
+	text-decoration: none;
+	color: white;
+	}
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape:first-child{
+    background: linear-gradient(
+        #1845ad,
+        #23a2f6
+    );
+    left: -50px;
+    top: -20px;
+}
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        #ff512f,
+        #f09819
+    );
+    right: -50px;
+    bottom: -140px;
+}
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <title>Short Link</title>
+.content{
+  width: 330px;
+
+  border-radius: 10px;
+  padding: 40px 30px;
+  margin: 100px auto;
+
+  background-color: rgba(255,255,255,0.13);
+    backdrop-filter: blur(10px);
+}
+
+
+.content .text{
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 35px;
+  color: rgb(247, 233, 233);
+}
+
+.content .field{
+  height: 50px;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.field input{
+  height: 100%;
+  width: 100%;
+  padding-left: 45px;
+  font-size: 18px;
+  outline: none;
+  border: none;
+  color: #e0d2d2;
+
+  border-radius: 8px;
+  background: rgba(19, 18, 18, 0);
+  backdrop-filter: blur(10px);
+}
+
+
+.field input::placeholder{
+  color: #e0d2d2a6;
+}
+.field:nth-child(2){
+  margin-top: 20px;
+}
+
+.field span{
+  position: absolute;
+  width: 50px;
+  line-height: 50px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+
+
+button{
+  margin: 25px 0 0 0;
+  width: 100%;
+  height: 50px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 8px;
+
+}
+
+.content .or{
+  color: rgb(236, 233, 15);
+  margin-top: 9px;
+}
+
+.icon-button{
+  margin-top: 15px;
+}
+.icon-button span{
+  padding-left: 17px;
+  padding-right: 17px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  text-decoration: none;
+   color: #ffffff;
+ border-radius: 5px;
+  line-height: 30px;
+  background: rgba(255, 255, 255, 0.164);
+    backdrop-filter: blur(10px);
+}
+.icon-button span.facebook{
+  margin-right: 17px;
+
+}
+button:hover,
+.icon-button span:hover{
+  background-color: #babecc8c;
+}
+
+    </style>
 </head>
+<body>
 
-<body data-new-gr-c-s-check-loaded="14.1029.0" data-gr-ext-installed>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">URL Shortener</a>
-        </div>
-    </nav>
-
-    <section id="post_url">
-        <div class="container">
-            <div class="row text-center mb-3">
-                <div class="col">
-                    <h2>URL Shortener</h2>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div id="hasil"></div>
-                    <form name="input_url" id="form-input">
-                        <div class="mb-3">
-                            <label for="url" class="form-label">URL</label>
-                            <input type="text" class="form-control" id="url" aria-describedby="url" name="url"
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="content">
+ <div class="text">Short Link</div>
+  <form action="https://rzkyfdlh.tech">
+    <div class="field">
+      <span class="fa fa-link"></span>
+      <input type="url" class="form-control" id="url" aria-describedby="url" name="url"
                                 placeholder="Example : https://youtube.com" required="true">
-                        </div>
-                        <div class="mb-3">
-                            <label for="costum" class="form-label">Costum Name</label>
-                            <input type="text" class="form-control" id="costum" aria-describedby="costum" name="costum">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-kirim">Short Link</button>
-                        <button class="btn btn-primary btn-loading d-none" type="button" disabled>
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Loading...
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <footer class="footer mt-auto py-3 bg-light">
-        <div class="container text-center">
-            <span class="text-muted">Created by aqulzz</span>
-        </div>
-    </footer>
-    <!-- Optional JavaScript; choose one of the two! -->
+    </div>
+    
+    <div class="field">
+      <span class="fa fa-font"></span>
+      <input type="text" class="form-control" id="costum" placeholder="Costum Name" aria-describedby="costum" name="costum">
+    </div>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
-    </script>
+    <button type="submit">Submit</button>
+    <div class="or">Contact Me</div>
+    <div class="icon-button">
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
-    -->
-    <script src="./js/script.js"></script>
+      <span><a href="https://wa.me/6282387804410"><i class="fa fa-whatsapp"></i>  WhatsApp</a></span>;n
+
+      <span><a href="https://github.com/Rizky878"><i class="fa fa-github"></i>  Github</a></span><br><br>
+      <span><a href="https://instagram.com/rizkyfadilah8_"><i class="fa fa-instagram"></i>  Instagram</a></span>;n
+      <span><a href="https://rzkyfdlh.tech"><i class="fab fa-firefox"></i>   Protofilio</a></span>
+
+
+    </div>
+  </form>
+</div>
+
 </body>
-
+</html>
+<!-- partial -->
+  <script src="./js/script.js"></script>
+</body>
 </html>
