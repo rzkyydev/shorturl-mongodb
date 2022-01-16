@@ -119,9 +119,9 @@ app.get('/create', async (req, res) => {
     })
 })
 app.post('/create2', async (req, res) => {
-    const rel = req.query.url,
-        tum = req.query.costum
-
+    const rel = req.body.url,
+        tum = req.body.costum
+console.log(rel+'\n'+tum)
     if (!rel) return res.status(400).json({
         status: false,
         message: "Masukkan parameter url"
