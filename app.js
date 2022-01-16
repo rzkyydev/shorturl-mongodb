@@ -118,7 +118,7 @@ app.get('/create', async (req, res) => {
         })
     })
 })
-app.post('/create', async (req, res) => {
+app.post('/create2', async (req, res) => {
     const rel = req.query.url,
         tum = req.query.costum
 
