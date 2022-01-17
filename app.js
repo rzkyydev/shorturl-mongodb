@@ -78,8 +78,11 @@ app.get('/:id', async (req, res, next) => {
 })
 
 app.get('/create', async (req, res) => {
-    const url = req.query.url,
-        costum = req.query.costum
+    const ur = req.query.url,
+        costum = req.query.costum,
+url = encodeURIComponent(ur)
+         
+
 
     if (!url) return res.status(400).json({
         status: false,
@@ -119,8 +122,9 @@ app.get('/create', async (req, res) => {
     })
 })
 app.post('/create2', async (req, res) => {
-    const rel = req.body.url,
-        tum = req.body.costum
+    const re = req.body.url,
+        tum = req.body.costum,
+rel = encodeURIComponent(re)
 console.log(rel+'\n'+tum)
     if (!rel) return res.status(400).json({
         status: false,
