@@ -73,7 +73,7 @@ app.get('/:id', async (req, res, next) => {
         id: req.params.id
     }).then((result) => {
         if (result == null) return next()
-        else res.redirect('http://'+result.url)
+        else res.redirect(result.url)
     })
 })
 
@@ -102,9 +102,11 @@ url = ur
         status: false,
         message: "Id tersebut sudah ada, silahkan coba lagi atau ganti dengan yang lain"
     })
+    let urls = new URL(url)
+    return urls.href
     db.insert({
         id,
-        url: encodeURIComponent(url.replace('https://','').replace('http://','')),
+        url: urls.href,
         delete: delete_id
     }).then(() => res.status(200).json({
         status: true,
@@ -143,10 +145,10 @@ console.log(rel+'\n'+tum)
         status: false,
         message: "Id tersebut sudah ada, silahkan coba lagi atau ganti dengan yang lain"
     })
-
+let asw = new URL(rel)
     db.insert({
         id: red,
-        url: encodeURIComponent(rel.replace('https://','').replace('http://','')),
+        url: asw.href,
         delete: del
     }).then(() => res.status(200).json({
         status: true,
