@@ -80,7 +80,7 @@ app.get('/:id', async (req, res, next) => {
 app.get('/create', async (req, res) => {
     const ur = req.query.url,
         costum = req.query.costum,
-url = encodeURIComponent(ur)
+url = ur
          
 
 
@@ -105,7 +105,7 @@ url = encodeURIComponent(ur)
 
     db.insert({
         id,
-        url,
+        encodeURIComponent(url),
         delete: delete_id
     }).then(() => res.status(200).json({
         status: true,
@@ -124,7 +124,7 @@ url = encodeURIComponent(ur)
 app.post('/create2', async (req, res) => {
     const re = req.body.url,
         tum = req.body.costum,
-rel = encodeURIComponent(re)
+rel = re
 console.log(rel+'\n'+tum)
     if (!rel) return res.status(400).json({
         status: false,
@@ -147,7 +147,7 @@ console.log(rel+'\n'+tum)
 
     db.insert({
         id: red,
-        url: rel,
+        url: encodeURIComponent(rel),
         delete: del
     }).then(() => res.status(200).json({
         status: true,
