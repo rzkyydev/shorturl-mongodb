@@ -105,7 +105,7 @@ url = ur
 
     db.insert({
         id,
-        encodeURIComponent(url),
+        url: encodeURIComponent(url),
         delete: delete_id
     }).then(() => res.status(200).json({
         status: true,
