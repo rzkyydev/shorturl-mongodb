@@ -146,7 +146,7 @@ console.log(rel+'\n'+tum)
 
     db.insert({
         id: red,
-        url: encodeURIComponent(rel.replace('https://','').replace('http://','')),,
+        url: encodeURIComponent(rel.replace('https://','').replace('http://','')),
         delete: del
     }).then(() => res.status(200).json({
         status: true,
