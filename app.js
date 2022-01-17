@@ -103,7 +103,7 @@ url = ur
         message: "Id tersebut sudah ada, silahkan coba lagi atau ganti dengan yang lain"
     })
     let urls = new URL(url)
-    return urls.href
+    
     db.insert({
         id,
         url: urls.href,
