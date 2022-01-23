@@ -81,7 +81,7 @@ app.get('/create', async (req, res) => {
     const ur = req.query.url,
         costum = req.query.costum,
 url = ur
-console.log(req)
+console.log(req.originalUrl)
     if (!url) return res.status(400).json({
         status: false,
         message: "Masukkan parameter url"
