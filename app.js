@@ -80,7 +80,7 @@ app.get('/:id', async (req, res, next) => {
 app.get('/create', async (req, res) => {
     const ur = req.originalUrl,
         costum = req.query.costum,
-url = ur.replace('create?url=','').split('&costum')[0]
+url = ur.replace('/create?url=','').split('&costum')[0]
 console.log(req.originalUrl)
     if (!url) return res.status(400).json({
         status: false,
