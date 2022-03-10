@@ -179,7 +179,7 @@ button:hover,
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  <section id="post_url">
 <div class="content">
- <div class="text"><%= db.count() %></div>
+ <div class="text"><%= (async() => { await db.count() }() %></div>
    <div id="hasil"></div>
      <form name="input_url" id="form-input">
     <div class="field">
