@@ -45,8 +45,17 @@ let jumlahdb = await db.count()
 })
 app.get('/data', async(req, res) => {
 const teksnya = req.query.get
-hasil = teksnya ? await db.find(teksnya) : await db.find()
+const datanya = req.query.datanya
+try {
+hasil = teksnya ? await db.find({ [datanya]: teksnya) : await db.find()
     teksnya ? res.json({ result: hasil }) : res.json({db: hasil , count: await db.count()})
+} catch(e) {
+res.json({ 
+status: false,
+message: "error",
+error: String(e)
+})
+}
 })
 
 app.use('/delete/:id', async (req, res) => {
