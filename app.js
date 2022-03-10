@@ -47,7 +47,7 @@ app.get('/data', async(req, res) => {
 const teksnya = req.query.get
 const datanya = req.query.datanya
 try {
-hasil = teksnya ? await db.find({ [datanya]: teksnya) : await db.find()
+hasil = teksnya ? await db.find({ [datanya]: teksnya}) : await db.find()
     teksnya ? res.json({ result: hasil }) : res.json({db: hasil , count: await db.count()})
 } catch(e) {
 res.json({ 
