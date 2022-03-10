@@ -43,7 +43,7 @@ app.get('/', async(req, res) => {
 let jumlahdb = await db.count()
     res.render(__dirname + '/public/index.ejs',{ jumlahdb })
 })
-app.get('/tes', async(req, res) => {
+app.get('/data', async(req, res) => {
     res.json({count: await db.count()})
 })
 
