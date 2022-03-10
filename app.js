@@ -41,7 +41,7 @@ app.use(function (err, req, res, next) {
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html')
 })
-app.get('/tes', (req, res) => {
+app.get('/tes', async(req, res) => {
     res.json({count: await db.count()})
 })
 
