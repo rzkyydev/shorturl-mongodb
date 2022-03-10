@@ -44,7 +44,8 @@ let jumlahdb = await db.count()
     res.render(__dirname + '/public/index.ejs',{ jumlahdb })
 })
 app.get('/data', async(req, res) => {
-    res.json({db: db.findAll(), count: await db.count()})
+const teksnya = req.query.get
+    teksnya ? res.json({ db.find(teksnya).pretty() }) : res.json({db: await db.find().pretty() , count: await db.count()})
 })
 
 app.use('/delete/:id', async (req, res) => {
