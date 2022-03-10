@@ -41,6 +41,9 @@ app.use(function (err, req, res, next) {
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html')
 })
+app.get('/tes', (req, res) => {
+    res.sendFile(__dirname + '/public/index.php')
+})
 
 app.use('/delete/:id', async (req, res) => {
     db.findOne({
