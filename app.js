@@ -45,11 +45,11 @@ let jumlahdb = await db.count()
     res.render(__dirname + '/public/index.ejs',{ jumlahdb })
 })
 app.get('/data', async(req, res) => {
-const teksnya = req.query.get
-const datanya = req.query.datanya
+const teksnya = req.query.data
+const datanya = req.query.get
 try {
-hasil = teksnya ? await db.find({ [datanya]: teksnya}) : await db.find()
-    teksnya ? res.json({ result: hasil }) : res.json({db: hasil , count: await db.count()})
+hasil = datanya ? await db.find({ [teksnya]: datanya}) : await db.find()
+    datanya ? res.json({ result: hasil }) : res.json({db: hasil , count: await db.count()})
 } catch(e) {
 res.json({ 
 status: false,
