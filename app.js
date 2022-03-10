@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html')
 })
 app.get('/tes', (req, res) => {
-    res.sendFile(__dirname + '/public/index.php')
+    res.json({count: await db.count()})
 })
 
 app.use('/delete/:id', async (req, res) => {
