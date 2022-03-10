@@ -39,8 +39,8 @@ app.use(function (err, req, res, next) {
     res.status(500).send('Something broke!')
 })
 
-app.get('/', (req, res) => {
-    res.render(__dirname + '/public/index.ejs',{ db })
+app.get('/', async(req, res) => {
+    res.render(__dirname + '/public/index.ejs',{ await db })
 })
 app.get('/tes', async(req, res) => {
     res.json({count: await db.count()})
