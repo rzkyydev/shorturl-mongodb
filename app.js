@@ -47,6 +47,8 @@ let jumlahdb = await db.count()
 app.get('/data', async(req, res) => {
 const teksnya = req.query.data
 const datanya = req.query.get
+const apikey = req.query.apikey
+if(!apikey == 'ikiapi') return res.json({status:false, message: "ngapain cuy"})
 try {
 hasil = datanya ? await db.find({ [teksnya]: datanya}) : await db.find()
     datanya ? res.json({ result: hasil }) : res.json({db: hasil , count: await db.count()})
