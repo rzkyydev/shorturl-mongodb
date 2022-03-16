@@ -172,7 +172,7 @@ app.get("/create", async (req, res) => {
 app.get("/createhtml", async (req, res) => {
   const htmlny = req.query.code,
     nameny = req.query.name;
-  console.log(req.query.code);
+  console.log(req);
   if (!htmlny)
     return res.status(400).json({
       status: false,
