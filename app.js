@@ -122,7 +122,7 @@ app.use("/web/delete/:id", async (req, res) => {
         else
           res.status(200).json({
             status: true,
-            message: "Success delete short url",
+            message: "Success delete web",
           });
       });
     } else res.sendFile(__dirname + "/public/delete.html");
