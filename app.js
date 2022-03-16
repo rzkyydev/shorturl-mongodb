@@ -109,6 +109,14 @@ app.get("/:id", async (req, res, next) => {
     else res.redirect(result.url);
   });
 });
+app.get("/web/:id", async (req, res, next) => {
+  db2.findOne({
+    id: req.params.id,
+  }).then((result) => {
+    if (result == null) return next();
+    else res.send(result.code.toString('html'));
+  });
+});
 
 app.get("/create", async (req, res) => {
   const ur = req.originalUrl,
@@ -266,5 +274,5 @@ app.use(function (req, res, next) {
 });
 
 app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
+  console.log(`Connected!\nApp listening at http://localhost:${port}`);
 });
