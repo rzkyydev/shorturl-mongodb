@@ -101,6 +101,34 @@ app.use("/delete/:id", async (req, res) => {
   });
 });
 
+app.use("/web/delete/:id", async (req, res) => {
+  db2.findOne({
+    delete: req.params.id,
+  }).then((result) => {
+    if (result == null)
+      return res.status(404).json({
+        status: false,
+        message: "ID not found",
+      });
+    if (req.method == "POST") {
+      db2.findOneAndDelete({
+        delete: req.params.id,
+      }).then((result) => {
+        if (result == null)
+          return res.status(404).json({
+            status: false,
+            message: "ID not found",
+          });
+        else
+          res.status(200).json({
+            status: true,
+            message: "Success delete short url",
+          });
+      });
+    } else res.sendFile(__dirname + "/public/delete.html");
+  });
+});
+
 app.get("/:id", async (req, res, next) => {
   db.findOne({
     id: req.params.id,
@@ -172,7 +200,7 @@ app.get("/create", async (req, res) => {
 app.get("/createhtml", async (req, res) => {
   const htmlny = req.query.code,
     nameny = req.query.name;
-  console.log(req);
+  console.log(req.query.code);
   if (!htmlny)
     return res.status(400).json({
       status: false,
@@ -190,7 +218,6 @@ app.get("/createhtml", async (req, res) => {
       message:
         "Name tersebut sudah ada, silahkan coba lagi atau ganti dengan yang lain",
     });
-  fs.writeFileSync("./public/web/" + idny + ".html", htmlny);
   db2
     .insert({
       id: idny,
@@ -202,7 +229,8 @@ app.get("/createhtml", async (req, res) => {
         status: true,
         creator: "RzkyFdlh",
         result: {
-          url: "https://sl.rzkyfdlh.tech/web/" + idny
+          url: "https://sl.rzkyfdlh.tech/web/" + idny,
+          delete: "https://sl.rzkyfdlh.tech/web/delete/" + delete_idny,
         },
       })
     )
