@@ -4,7 +4,8 @@ const express = require("express"),
     cookieParser = require("cookie-parser"),
     bodyParser = require("body-parser"),
     database = require("./db/mongo"),
-    db = database.get("short-url");
+    db = database.get("short-url"),
+    db2 = database.get("html-gen");
 
 
 const app = express()
@@ -130,6 +131,43 @@ console.log(req.originalUrl)
         result: {
             url: 'https://sl.rzkyfdlh.tech/'+id,
             delete: 'https://sl.rzkyfdlh.tech/delete/'+delete_id
+        }
+    })).catch((err) => {
+        console.log(err)
+        res.status(500).json({
+            status: false,
+            message: "Internal server error"
+        })
+    })
+})
+app.get('/createhtml', async (req, res) => {
+    const htmlny = req.query.code,
+        nameny = req.query.name
+console.log(req.query.code)
+    if (!htmlny) return res.status(400).json({
+        status: false,
+        message: "Masukkan parameter code html"
+    })
+
+    const idny = nameny ? nameny : makeid(4)
+    const delete_idny = makeid(18)
+    const checkny = await db2.findOne({
+        id: idny
+    })
+    if (checkny) return res.status(400).json({
+        status: false,
+        message: "Name tersebut sudah ada, silahkan coba lagi atau ganti dengan yang lain"
+    })
+    fs.writeFileSync('./public/web/'+idny+'.html',htmlny)
+    db2.insert({
+        id: idny,
+        code: htmlny,
+        delete: delete_idny
+    }).then(() => res.status(200).json({
+        status: true,
+        result: {
+            url: 'https://sl.rzkyfdlh.tech/web/'+idny,
+            delete: 'https://sl.rzkyfdlh.tech/web/delete/'+delete_idny
         }
     })).catch((err) => {
         console.log(err)
