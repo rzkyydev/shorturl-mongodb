@@ -200,9 +200,9 @@ app.get("/createhtml", async (req, res) => {
     .then(() =>
       res.status(200).json({
         status: true,
+        creator: "RzkyFdlh",
         result: {
-          url: "https://sl.rzkyfdlh.tech/web/" + idny,
-          delete: "https://sl.rzkyfdlh.tech/web/delete/" + delete_idny,
+          url: "https://sl.rzkyfdlh.tech/web/" + idny
         },
       })
     )
