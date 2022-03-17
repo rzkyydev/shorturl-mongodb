@@ -98,14 +98,14 @@ app.use('/ytdl', (req, res) => {
 token = makeid(18)
 res.render(__dirname + '/public/ytdl/index.ejs', { token })
 })
-app.post('/ytdl/download',async (req, res, next) => {
+app.get'/ytdl/downloadmp3',async (req, res) => {
 console.log(req)
-  var urlny = req.body.url
-  if(!req.body.token == token) return res.json({token: 'invalid'})
+  var urlny = req.query.url
+  if(!req.query.token == token) return res.json({token: 'invalid'})
   if (!urlny.includes('youtu')) return res.json({status: false, message: 'link youtube invalid'})
-  if (!isUrl(req.body.url)) return res.json({status: false, message: 'link invalid'})
+  if (!isUrl(req.query.url)) return res.json({status: false, message: 'link invalid'})
   try {
-  var yt = await y2mateA(req.body.url)
+  var yt = await y2mateA(req.query.url)
   var link = yt[0].link
   var judul = yt[0].judul
   var filepath = yt[0].output
