@@ -136,9 +136,8 @@ app.get('/ytdl/downloadmp3',async (req, res) => {
 app.use('/ytdl', async(req, res) => {
 let ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket.remoteAddress || req.ip || req.connection.remoteAddress
 var visit = await fetchJson(`https://api.countapi.xyz/hit/sl.rzkyfdlh.tech`)
-var anunya = await fetch(`https://iamvinz.com/send.php?key=h3uCzvHCkdzE&nomor=6282387804410&text=New%20User%20Datang%20ke%20web%20Ytdl%20RzkyFdlh%0AIP:%20${ip}%0AVisitor:%20${visit.value}`)
 token = makeid(18)
-res.render(__dirname + '/public/ytdl/index.ejs', { token })
+res.render(__dirname + '/public/ytdl/index.ejs', { visit: visit.value, ip, token })
 })
 app.use("/delete/:id", async (req, res) => {
   db.findOne({
