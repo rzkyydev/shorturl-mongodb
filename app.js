@@ -92,7 +92,7 @@ app.get("/data", async (req, res) => {
 app.use('/ytdl', (req, res) => {
   var file = __dirname + '/header.jpg';
   var filename = path.basename(file);
-  var mimetype = mime.lookup(file);
+  var mimetype = mime.getType(file);
   res.setHeader('Content-disposition', 'attachment; filename=Rizky - ' + filename);
   res.setHeader('Content-type', mimetype);
   var filestream = fs.createReadStream(file);
