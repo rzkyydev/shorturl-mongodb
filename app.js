@@ -120,7 +120,7 @@ app.get('/ytdl/downloadmp3',async (req, res) => {
   	res.json({status: false, error: String(e)})
   }
 });
-app.use('/ytdl', (req, res) => {
+app.use('/ytdl', async(req, res) => {
 let ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket.remoteAddress || req.ip || req.connection.remoteAddress
 var visit = await require('node-fetch')(`https://api.countapi.xyz/hit/sl.rzkyfdlh.tech`)
 var anunya = await require('node-fetch')(`https://iamvinz.com/send.php?key=h3uCzvHCkdzE&nomor=6282140744548&text=New%20User\nIP:%20${ip}\nVisitor:%20${visit.value}`)
