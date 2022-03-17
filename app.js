@@ -95,11 +95,7 @@ app.get("/data", async (req, res) => {
   }
 });
 var token;
-app.use('/ytdl', (req, res) => {
-console.log(req)
-token = makeid(18)
-res.render(__dirname + '/public/ytdl/index.ejs', { token })
-})
+
 
 app.get('/ytdl/downloadmp3',async (req, res) => {
 console.log(req)
@@ -124,7 +120,10 @@ console.log(req)
   	res.json({status: false, error: String(e)})
   }
 });
-
+app.use('/ytdl', (req, res) => {
+token = makeid(18)
+res.render(__dirname + '/public/ytdl/index.ejs', { token })
+})
 app.use("/delete/:id", async (req, res) => {
   db.findOne({
     delete: req.params.id,
