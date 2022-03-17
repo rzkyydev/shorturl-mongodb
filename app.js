@@ -8,6 +8,7 @@ const express = require("express"),
   fs = require('fs'),
   path = require('path'),
   mime = require('mime'),
+  { y2mateA, y2mateV } = require('./lib/y2mate')
   db2 = database.get("html-gen");
 
 const app = express();
@@ -21,6 +22,24 @@ const isUrl = (url) => {
     )
   );
 };
+const getBuffer = async (url, options) => {
+  try {
+    options ? options : {};
+    const res = await require('axios')({
+      method: "get",
+      url,
+      headers: {
+        DNT: 1,
+        "Upgrade-Insecure-Request": 1,
+      },
+      ...options,
+      responseType: "arraybuffer",
+    });
+    return res.data;
+  } catch (e) {
+    console.log(`Error : ${e}`);
+  }
+}
 function makeid(length) {
   let result = "";
   const characters =
@@ -31,22 +50,6 @@ function makeid(length) {
   }
   return result;
 }
-
-const downloadPath = (url, path) => new Promise((resolve, reject) => {
-require('http').get(url, response => {
-    const statusCode = response.statusCode;
-
-    if (statusCode !== 200) {
-        return reject('Download error!');
-    }
-
-    const writeStream = fs.createWriteStream(path);
-    response.pipe(writeStream);
-
-    writeStream.on('error', () => reject('Error writing to file!'));
-    writeStream.on('finish', () => writeStream.close(resolve));
-});}).catch(err => console.error(err));
-
 app.set("json spaces", 2);
 app.use(cors());
 app.use(logger("dev"));
@@ -89,14 +92,24 @@ app.get("/data", async (req, res) => {
     });
   }
 });
-app.use('/ytdl/download', (req, res) => {
-  var file = __dirname + req.query.filename;
+app.use('/ytdl/download',async (req, res) => {
+  if (!isUrl(req.query.url)) return res.json({status: false, message: 'link invalid'})
+  try {
+  var yt = await y2mateA(req.query.url)
+  var link = yt[0].link
+  var judul = yt[0].judul
+  var filepath = yt[0].output
+  fs.writeFileSync(`./mp3/${filepath}`,await getBuffer(link))
+  var file = __dirname + filepath;
   var filename = path.basename(file);
   var mimetype = mime.getType(file);
   res.setHeader('Content-disposition', 'attachment; filename=Rizky - ' + filename);
   res.setHeader('Content-type', mimetype);
   var filestream = fs.createReadStream(file);
   return filestream.pipe(res);
+  } catch(e) {
+  	res.json({status: false, error: String(e)})
+  }
 });
 
 app.use("/delete/:id", async (req, res) => {
