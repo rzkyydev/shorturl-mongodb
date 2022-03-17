@@ -87,7 +87,9 @@ app.get("/data", async (req, res) => {
     });
   }
 });
-
+app.use("/ytdl", async(req,res) => {
+await download("http://i3.ytimg.com/vi/J---aiyznGQ/mqdefault.jpg",'rizky.jpg')
+})
 app.use("/delete/:id", async (req, res) => {
   db.findOne({
     delete: req.params.id,
