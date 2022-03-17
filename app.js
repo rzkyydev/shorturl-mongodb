@@ -104,7 +104,7 @@ app.use('/ytdl/download',async (req, res) => {
   var file = __dirname + '/mp3/' + filepath;
   var filename = path.basename(file);
   var mimetype = mime.getType(file);
-  res.setHeader('Content-disposition', 'attachment; filename=Rizky - ' + filename);
+  res.setHeader('Content-disposition', 'attachment; filename=RzkyFdlh YTMP3 Downloader - ' + filename);
   res.setHeader('Content-type', mimetype);
   var filestream = fs.createReadStream(file);
   return filestream.pipe(res);
