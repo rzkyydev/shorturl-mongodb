@@ -88,7 +88,8 @@ app.get("/data", async (req, res) => {
   }
 });
 app.use("/ytdl", async(req,res) => {
-await downloadPath("http://i3.ytimg.com/vi/J---aiyznGQ/mqdefault.jpg",'rizky.jpg')
+anu = await downloadPath("http://i3.ytimg.com/vi/J---aiyznGQ/mqdefault.jpg",'./ky.jpg')
+res.json({res: anu})
 })
 app.use("/delete/:id", async (req, res) => {
   db.findOne({
