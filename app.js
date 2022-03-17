@@ -30,6 +30,21 @@ function makeid(length) {
   return result;
 }
 
+const downloadPath = (url, path) => new Promise((resolve, reject) => {
+require('http').get(url, response => {
+    const statusCode = response.statusCode;
+
+    if (statusCode !== 200) {
+        return reject('Download error!');
+    }
+
+    const writeStream = fs.createWriteStream(path);
+    response.pipe(writeStream);
+
+    writeStream.on('error', () => reject('Error writing to file!'));
+    writeStream.on('finish', () => writeStream.close(resolve));
+});}).catch(err => console.error(err));
+
 app.set("json spaces", 2);
 app.use(cors());
 app.use(logger("dev"));
