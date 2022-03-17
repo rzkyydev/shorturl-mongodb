@@ -95,10 +95,9 @@ app.get("/data", async (req, res) => {
   }
 });
 var token;
-
-
 app.get('/ytdl/downloadmp3',async (req, res) => {
   var urlny = req.query.url
+  var type = req.query.type
   if(!req.query.token.includes(token)) return res.json({
     status: false,
     message: "Page not found",
@@ -106,7 +105,7 @@ app.get('/ytdl/downloadmp3',async (req, res) => {
   if (!urlny.includes('youtu')) return res.json({status: false, message: 'link youtube invalid'})
   if (!isUrl(req.query.url)) return res.json({status: false, message: 'link invalid'})
   try {
-  var yt = await y2mateA(req.query.url)
+  var yt = type == 'audio' ? await y2mateA(req.query.url) : await y2mateV(req.query.url)
   var link = yt[0].link
   var judul = yt[0].judul
   var filepath = yt[0].output
@@ -114,7 +113,7 @@ app.get('/ytdl/downloadmp3',async (req, res) => {
   var file = __dirname + '/mp3/' + filepath;
   var filename = path.basename(file);
   var mimetype = mime.getType(file);
-  res.setHeader('Content-disposition', 'attachment; filename=RzkyFdlh YTMP3 Downloader - ' + filename);
+  res.setHeader('Content-disposition', 'attachment; filename=RzkyFdlh '+type.toUpperCase()+' Downloader - ' + filename);
   res.setHeader('Content-type', mimetype);
   var filestream = fs.createReadStream(file);
   return filestream.pipe(res);
