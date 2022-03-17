@@ -99,6 +99,7 @@ token = makeid(18)
 res.render(__dirname + '/public/ytdl/index.ejs', { token })
 })
 app.post('/ytdl/download',async (req, res, next) => {
+console.log(req)
   var urlny = req.body.url
   if(!req.body.token == token) return res.json({token: 'invalid'})
   if (!urlny.includes('youtu')) return res.json({status: false, message: 'link youtube invalid'})
