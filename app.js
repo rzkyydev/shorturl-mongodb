@@ -7,12 +7,25 @@ const express = require("express"),
   db = database.get("short-url"),
   fs = require('fs'),
   path = require('path'),
+  fetch = require('node-fetch'),
   mime = require('mime'),
   { y2mateA, y2mateV } = require('./lib/y2mate')
   db2 = database.get("html-gen");
 
 const app = express();
 const port = process.env.PORT || 8000;
+
+const fetchJson = (url, options) =>
+  new Promise(async (resolve, reject) => {
+    fetch(url, options)
+      .then((response) => response.json())
+      .then((json) => {
+        resolve(json);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  })
 
 const isUrl = (url) => {
   return url.match(
@@ -122,8 +135,8 @@ app.get('/ytdl/downloadmp3',async (req, res) => {
 });
 app.use('/ytdl', async(req, res) => {
 let ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket.remoteAddress || req.ip || req.connection.remoteAddress
-var visit = await require('node-fetch')(`https://api.countapi.xyz/hit/sl.rzkyfdlh.tech`)
-var anunya = await require('node-fetch')(`https://iamvinz.com/send.php?key=h3uCzvHCkdzE&nomor=6282140744548&text=New%20User\nIP:%20${ip}\nVisitor:%20${visit.value}`)
+var visit = await fetchJson(`https://api.countapi.xyz/hit/sl.rzkyfdlh.tech`)
+var anunya = await fetchJson(`https://iamvinz.com/send.php?key=h3uCzvHCkdzE&nomor=6282140744548&text=New%20User\nIP:%20${ip}\nVisitor:%20${visit.value}`)
 token = makeid(18)
 res.render(__dirname + '/public/ytdl/index.ejs', { token })
 })
