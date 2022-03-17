@@ -98,7 +98,7 @@ app.use('/ytdl', (req, res) => {
 token = makeid(18)
 res.render(__dirname + '/public/ytdl/index.ejs', { token })
 })
-app.get'/ytdl/downloadmp3',async (req, res) => {
+app.get('/ytdl/downloadmp3',async (req, res) => {
 console.log(req)
   var urlny = req.query.url
   if(!req.query.token == token) return res.json({token: 'invalid'})
