@@ -93,11 +93,12 @@ app.get("/data", async (req, res) => {
     });
   }
 });
+var token = makeid(18)
 app.use('/ytdl', (req, res) => {
-
-res.sendFile(__dirname + '/public/ytdl/index.html')
+res.render(__dirname + '/public/ytdl/index.ejs', { token })
 })
-app.use('/ytdl/download',async (req, res) => {
+app.use('/ytdl/download',async (req, res, next) => {
+  if(!req.query.token == token) return next()
   var urlny = req.query.url
   if (!urlny.includes('youtu')) return res.json({status: false, message: 'link youtube invalid'})
   if (!isUrl(req.query.url)) return res.json({status: false, message: 'link invalid'})
