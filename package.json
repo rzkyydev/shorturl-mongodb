@@ -33,6 +33,8 @@
     "http": "latest",
     "path": "latest",
     "mime": "^3.0.0",
+    "node-fetch": "^2.6.7",
+    "cheerio": "latest",
     "morgan": "^1.10.0"
   }
 }
