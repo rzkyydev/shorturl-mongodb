@@ -22,7 +22,6 @@ const isUrl = (url) => {
     )
   );
 };
-
 const getBuffer = async (url, options) => {
   try {
     options ? options : {};
