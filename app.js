@@ -93,7 +93,13 @@ app.get("/data", async (req, res) => {
     });
   }
 });
+app.use('/ytdl', (req, res) => {
+
+res.sendFile(__dirname + '/public/ytdl/index.html')
+})
 app.use('/ytdl/download',async (req, res) => {
+  var urlny = req.query.url
+  if (!urlny.includes('youtu')) return res.json({status: false, message: 'link youtube invalid'})
   if (!isUrl(req.query.url)) return res.json({status: false, message: 'link invalid'})
   try {
   var yt = await y2mateA(req.query.url)
