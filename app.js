@@ -89,8 +89,8 @@ app.get("/data", async (req, res) => {
     });
   }
 });
-app.use('/ytdl', (req, res) => {
-  var file = __dirname + '/header.jpg';
+app.use('/ytdl/download', (req, res) => {
+  var file = __dirname + req.query.filename;
   var filename = path.basename(file);
   var mimetype = mime.getType(file);
   res.setHeader('Content-disposition', 'attachment; filename=Rizky - ' + filename);
