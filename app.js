@@ -6,6 +6,8 @@ const express = require("express"),
   database = require("./db/mongo"),
   db = database.get("short-url"),
   fs = require('fs'),
+  path = require('path'),
+  mime = require('mime'),
   db2 = database.get("html-gen");
 
 const app = express();
@@ -87,10 +89,16 @@ app.get("/data", async (req, res) => {
     });
   }
 });
-app.use("/ytdl", async(req,res) => {
-anu = await downloadPath("http://i3.ytimg.com/vi/J---aiyznGQ/mqdefault.jpg",'./ky.jpg')
-res.json({res: anu})
-})
+app.get('/ytdl', function(req, res){
+  var file = __dirname + '/header.jpg';
+  var filename = path.basename(file);
+  var mimetype = mime.lookup(file);
+  res.setHeader('Content-disposition', 'attachment; filename=Rizky - ' + filename);
+  res.setHeader('Content-type', mimetype);
+  var filestream = fs.createReadStream(file);
+  filestream.pipe(res);
+});
+
 app.use("/delete/:id", async (req, res) => {
   db.findOne({
     delete: req.params.id,
