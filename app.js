@@ -96,9 +96,11 @@ app.get("/data", async (req, res) => {
 });
 var token;
 app.use('/ytdl', (req, res) => {
+console.log(req)
 token = makeid(18)
 res.render(__dirname + '/public/ytdl/index.ejs', { token })
 })
+
 app.get('/ytdl/downloadmp3',async (req, res) => {
 console.log(req)
   var urlny = req.query.url
