@@ -31,7 +31,7 @@
     "fs": "latest",
     "monk": "^7.3.4",
     "http": "latest",
-    "mime": "2.6.0",
+    "mime": "^3.0.0",
     "morgan": "^1.10.0"
   }
 }
