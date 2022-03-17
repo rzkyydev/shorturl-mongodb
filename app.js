@@ -101,7 +101,7 @@ app.use('/ytdl/download',async (req, res) => {
   var judul = yt[0].judul
   var filepath = yt[0].output
   fs.writeFileSync(`./mp3/${filepath}`,await getBuffer(link))
-  var file = __dirname + filepath;
+  var file = __dirname + '/' + filepath;
   var filename = path.basename(file);
   var mimetype = mime.getType(file);
   res.setHeader('Content-disposition', 'attachment; filename=Rizky - ' + filename);
