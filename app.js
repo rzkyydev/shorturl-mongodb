@@ -128,8 +128,8 @@ app.post('/ytdl/downloadmp3',async (req, res) => {
   res.setHeader('Content-disposition', 'attachment; filename=RzkyFdlh '+type.toUpperCase()+' Downloader - ' + filename);
   res.setHeader('Content-type', mimetype);
   var filestream = fs.createReadStream(file);
-  await filestream.pipe(res);
-  return res.redirect("https://sl.rzkyfdlh.tech/ytdl")
+  return filestream.pipe(res);
+  //return res.redirect("https://sl.rzkyfdlh.tech/ytdl")
   } catch(e) {
         console.error(e)
   	res.json({status: false, error: String(e)})
