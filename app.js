@@ -118,7 +118,7 @@ app.post('/ytdl/downloadmp3',async (req, res) => {
   if (!urlny.includes('youtu')) return res.json({status: false, message: 'link youtube invalid'})
   if (!isUrl(req.body.url)) return res.json({status: false, message: 'link invalid'})
   try {
-  var yt = type == 'audio' ? await y2mateA(req.body.url, quality.includes('p') ? '256' : quality ) : await y2mateV(req.body.url, quality.includes('p') ? quality : '1080p')
+  var yt = type == 'audio' ? await y2mateA(req.body.url, quality.includes('p') ? '256' : quality ) : await y2mateV(req.body.url, quality.includes('p') ? quality.replace(/p/gi,'') : '1080')
   var link = yt[0].link
   var judul = yt[0].judul
   var filepath = yt[0].output
@@ -145,8 +145,8 @@ var urlny = req.body.url
   if (!urlny.includes('youtu')) return res.json({status: false, message: 'link youtube invalid'})
   if (!isUrl(req.body.url)) return res.json({status: false, message: 'link invalid'})
   try {
-  var yt =  await y2mateA(req.body.url)
-var yt2 = await y2mateV(req.body.url)
+  var yt =  await y2mateA(req.body.url, '256')
+var yt2 = await y2mateV(req.body.url, '1080')
   var link = yt[0].link
   var urlna = await fetchJson(`https://sl.rzkyfdlh.tech/create?url=${link}`)
   var judul = yt[0].judul
