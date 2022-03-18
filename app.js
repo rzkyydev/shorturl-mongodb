@@ -107,17 +107,17 @@ app.get("/data", async (req, res) => {
   }
 });
 var token;
-app.get('/ytdl/downloadmp3',async (req, res) => {
-  var urlny = req.query.url
-  var type = req.query.type
-  if(!req.query.token.includes(token)) return res.json({
+app.post('/ytdl/downloadmp3',async (req, res) => {
+  var urlny = req.body.url
+  var type = req.body.type
+  if(!req.body.token.includes(token)) return res.json({
     status: false,
     message: "Page not found",
   });
   if (!urlny.includes('youtu')) return res.json({status: false, message: 'link youtube invalid'})
-  if (!isUrl(req.query.url)) return res.json({status: false, message: 'link invalid'})
+  if (!isUrl(req.body.url)) return res.json({status: false, message: 'link invalid'})
   try {
-  var yt = type == 'audio' ? await y2mateA(req.query.url) : await y2mateV(req.query.url)
+  var yt = type == 'audio' ? await y2mateA(req.body.url) : await y2mateV(req.body.url)
   var link = yt[0].link
   var judul = yt[0].judul
   var filepath = yt[0].output
