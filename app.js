@@ -148,7 +148,7 @@ var urlny = req.body.url
   var yt =  await y2mateA(req.body.url)
 var yt2 = await y2mateV(req.body.url)
   var link = yt[0].link
-  var urlna = await fetchJson(`https://sl.rzkyfdlh.tech/create?url=${link}`)
+  var urlna = (await fetchJson(`https://sl.rzkyfdlh.tech/create?url=${link}`)).data.result.url
   var judul = yt[0].judul
   var filepath = yt[0].output
 res.render(__dirname + '/public/ytdl/result.ejs',{ title: judul, img: yt[0].thumb, token, sizeaudio: yt[0].size, sizevideo: yt2[0].size,link: urlna, url: req.body.url })
