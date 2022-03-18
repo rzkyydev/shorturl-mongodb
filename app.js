@@ -388,7 +388,7 @@ app.post("/create2", async (req, res) => {
 });
 
 // Handling 404
-app.use(function (req, res, next) {
+app.use(async function (req, res, next) {
 var visit = await fetchJson(`https://api.countapi.xyz/hit/up.rzkyfdlh.tech`)
   res.status(404).render(__dirname + '/public/404.ejs', { visit: visit.value })
 });
