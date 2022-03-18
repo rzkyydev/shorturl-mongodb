@@ -42,6 +42,19 @@ body {
     padding: 50px 50px 30px 50px;
 }
 
+.info-area {
+    text-align: left;
+    padding: 50px 50px 30px 50px;
+}
+
+select {
+  width: 50%;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 20px;
+  background-color: #f1f1f1;
+}
+
 .username,
 .password {
     width: 100%;
@@ -75,6 +88,21 @@ body {
     color: white;
     border: none;
     outline: none;
+    margin: 10px;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.info {
+    width: 150px;
+    padding: 10px;
+    background-color: black;
+    border-radius: 20px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    outline: 5px yellow;
+    outline-style: double;
     margin: 10px;
     transition: .2s;
     cursor: pointer;
