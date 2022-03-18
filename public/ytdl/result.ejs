@@ -15,8 +15,6 @@
     <form action="/ytdl/downloadmp3" method="POST" class="box">
       <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
       <div class="header">
-        <p class="info">Visitor: 100</p>
-        <p class="info">IP: 1.1.1.1</p>
         <h4>YouTube Downloader</h4>
         <p>jika error silahkan report ke contact saya</p>
       </div>
@@ -27,7 +25,8 @@
           style="width: 200px; height: 200px"
         /><br />
         <p>Judul: <b><%= title %></b></p>
-        <p>Link: <b><a href="<%= link %>"><%= link %></a></b></p>
+        <p>Link: <a href="<%= link %>"><b><%= link %></b></a></p>
+        <p>Link YouTube: <a href="<%= url %>"><b><%= url %></b></a></p>
         <p>
           Size: <br /><b>Audio: <%= sizeaudio %></b><br /><b
             >Video: <%= sizevideo %></b
