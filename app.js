@@ -86,6 +86,9 @@ app.get("/", async (req, res) => {
   let jumlahdb = await db.count();
   res.render(__dirname + "/public/index.pug", { jumlahdb });
 });
+app.get("/pug", (req, res) => {
+res.render(`h1 allo`)
+})
 app.get("/data", async (req, res) => {
   const teksnya = req.query.data;
   const datanya = req.query.get;
