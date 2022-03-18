@@ -389,10 +389,8 @@ app.post("/create2", async (req, res) => {
 
 // Handling 404
 app.use(function (req, res, next) {
-  res.status(404).json({
-    status: false,
-    message: "Page not found",
-  });
+var visit = await fetchJson(`https://api.countapi.xyz/hit/up.rzkyfdlh.tech`)
+  res.status(404).render(__dirname + '/public/404.ejs', { visit: visit.value })
 });
 
 app.listen(port, () => {
