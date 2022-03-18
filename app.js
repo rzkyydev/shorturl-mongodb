@@ -136,13 +136,6 @@ app.post('/ytdl/downloadmp3',async (req, res) => {
   	res.json({status: false, error: String(e)})
   }
 });
-app.use('/ytdl', async(req, res) => {
-let ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket.remoteAddress || req.ip || req.connection.remoteAddress
-var visit = await fetchJson(`https://api.countapi.xyz/hit/sl.rzkyfdlh.tech`)
-token = makeid(18)
-res.render(__dirname + '/public/ytdl/index.ejs', { visit: visit.value, ip, token })
-})
-
 app.post('/ytdl/result', async(req,res) => {
 var urlny = req.body.url
   if(!req.body.token.includes(token)) return res.json({
@@ -158,12 +151,18 @@ var yt2 = await y2mateV(req.body.url)
   var urlna = await fetchJson(`https://sl.rzkyfdlh.tech/create?url=${link}`)
   var judul = yt[0].judul
   var filepath = yt[0].output
-res.render(__dirname + '/public/result.ejs',{ title: judul, img: yt[0].thumb, token, sizeaudio: yt[0].size, sizevideo: yt2[0].size,link: urlna, url: req.body.url })
+res.render(__dirname + '/public/ytdl/result.ejs',{ title: judul, img: yt[0].thumb, token, sizeaudio: yt[0].size, sizevideo: yt2[0].size,link: urlna, url: req.body.url })
 } catch(e) {
 	return res.json({status: false, message: String(e)})
 	}
 	})
-	
+app.use('/ytdl', async(req, res) => {
+let ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket.remoteAddress || req.ip || req.connection.remoteAddress
+var visit = await fetchJson(`https://api.countapi.xyz/hit/sl.rzkyfdlh.tech`)
+token = makeid(18)
+res.render(__dirname + '/public/ytdl/index.ejs', { visit: visit.value, ip, token })
+})
+
 app.use("/delete/:id", async (req, res) => {
   db.findOne({
     delete: req.params.id,
