@@ -76,7 +76,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static("public"));
-app.set("view engine", "ejs");
+app.set("view engine", "pug");
 app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).send("Something broke!");
@@ -84,7 +84,7 @@ app.use(function (err, req, res, next) {
 
 app.get("/", async (req, res) => {
   let jumlahdb = await db.count();
-  res.render(__dirname + "/public/index.ejs", { jumlahdb });
+  res.render(__dirname + "/public/index.pug", { jumlahdb });
 });
 app.get("/data", async (req, res) => {
   const teksnya = req.query.data;
