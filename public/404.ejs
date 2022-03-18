@@ -1,0 +1,254 @@
+
+
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <title>404 - Rzky API</title>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+        <meta name="author" content="M Hadi Firmansya"/>
+        <meta name="description" content="404 Page Not Found">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:700">
+    </head>
+    <style>
+    	{
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#notfound {
+  position: relative;
+  height: 100vh;
+  background: #000000;
+}
+
+#notfound .notfound {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+#notfound .notfound-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+#notfound .notfound-bg>div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: #000000;
+}
+
+#notfound .notfound-bg>div:nth-child(1) {
+  left: 10%;
+}
+
+#notfound .notfound-bg>div:nth-child(2) {
+  left: 30%
+}
+
+#notfound .notfound-bg>div:nth-child(3) {
+  left: 50%
+}
+
+#notfound .notfound-bg>div:nth-child(4) {
+  left: 70%
+}
+
+#notfound .notfound-bg>div:nth-child(5) {
+  left: 90%
+}
+
+#notfound .notfound-bg>div:after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: -0.5px;
+  -webkit-transform: translateY(-160px);
+      -ms-transform: translateY(-160px);
+          transform: translateY(-160px);
+  height: 160px;
+  width: 2px;
+  background-color: #00FFFF;
+}
+
+@-webkit-keyframes drop {
+  90% {
+    height: 50px;
+  }
+  100% {
+    height: 100px;
+    -webkit-transform: translateY(calc(100vh + 160px));
+            transform: translateY(calc(100vh + 160px));
+  }
+}
+
+@keyframes drop {
+  90% {
+    height: 50px;
+  }
+  100% {
+    height: 100px;
+    -webkit-transform: translateY(calc(100vh + 160px));
+            transform: translateY(calc(100vh + 160px));
+  }
+}
+
+#notfound .notfound-bg>div:nth-child(1):after {
+  -webkit-animation: drop 0.6s infinite linear;
+          animation: drop 0.4s infinite linear;
+  -webkit-animation-delay: 0.5s;
+          animation-delay: 0.5s;
+}
+
+#notfound .notfound-bg>div:nth-child(2):after {
+  -webkit-animation: drop 0.6s infinite linear;
+          animation: drop 0.4s infinite linear;
+  -webkit-animation-delay: 0.10s;
+          animation-delay: 0.10s;
+}
+
+#notfound .notfound-bg>div:nth-child(3):after {
+  -webkit-animation: drop 0.6s infinite linear;
+          animation: drop 0.4s infinite linear;
+  -webkit-animation-delay: 0.20s;
+          animation-delay: 0.20s;
+}
+
+#notfound .notfound-bg>div:nth-child(4):after {
+  -webkit-animation: drop 0.6s infinite linear;
+          animation: drop 0.4s infinite linear;
+  -webkit-animation-delay: 0.40s;
+          animation-delay: 0.40s;
+}
+
+#notfound .notfound-bg>div:nth-child(5):after {
+  -webkit-animation: drop 0.6s infinite linear;
+          animation: drop 0.4s infinite linear;
+  -webkit-animation-delay: 0.60s;
+          animation-delay: 0.60s;
+}
+
+
+.notfound {
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+}
+
+.notfound .notfound-index {
+  height: 210px;
+  line-height: 210px;
+}
+
+.notfound .notfound-index h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 200px;
+  font-weight: bold;
+  margin: 0px;
+  text-shadow: 6px 6px 0px #00FFFF;
+}
+
+.notfound .notfound-error {
+  height: 210px;
+  line-height: 210px;
+}
+
+.notfound .notfound-error h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 188px;
+  font-weight: bold;
+  margin: 0px;
+  text-shadow: 4px 4px 0px #00FFFF;
+}
+
+.notfound h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 42px;
+  font-weight: bold;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  text-shadow: 2px 2px 0px #00FFFF;
+}
+
+.notfound p {
+  font-family: 'Lato', sans-serif;
+  color: #000;
+  font-size: 15px;
+  font-weight: bold;
+  color: #00FFFF;
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+
+.notfound a {
+  font-family: 'Lato', sans-serif;
+  padding: 10px 30px;
+  display: inline-block;
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
+  -webkit-box-shadow: 0px 0px 0px 2px #000, 2px 2px 0px 2px #00FFFF;
+          box-shadow: 0px 0px 0px 2px #000, 2px 2px 0px 2px #00FFFF;
+  text-decoration: none;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+  color: #00FFFF;
+}
+
+.notfound a:hover {
+  background-color: #00FFFF;
+  -webkit-box-shadow: 0px 0px 0px 0px #000, 0px 0px 0px 2px #00FFFF;
+          box-shadow: 0px 0px 0px 0px #000, 0px 0px 0px 2px #00FFFF;
+}
+
+@media only screen and (max-width: 480px) {
+  .notfound .notfound-error {
+    height: 122px;
+    line-height: 122px;
+  }
+  .notfound .notfound-error h1 {
+    font-size: 122px;
+  }
+  .notfound h2 {
+    font-size: 26px;
+  }
+}
+    </style>
+    <body>
+      <div id="notfound">
+        <div class="notfound-bg">
+          <div></div><div></div>
+          <div></div>
+          <div></div><div></div>
+        </div>
+        <div class="notfound">
+          <div class="notfound-index">
+            <h1 style="color: black;">404</h1>
+          </div>
+          <h2>NOT FOUND</h2>
+          <h3 style="color: #00FFFF;font-weight: bold;" id="Time"></h3>
+          <h3 style="color: #00FFFF;" >Total Orang Tersesat: <%= visit %></h3>
+          <p>Rzky API</p>
+          <a href="/" style="border: 2px solid #00FFFF">GO TO MENU</a>
+        </div>
+      </div>
+    </body>
+</html>
