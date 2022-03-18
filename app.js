@@ -126,7 +126,7 @@ app.post('/ytdl/downloadmp3',async (req, res) => {
   var file = __dirname + '/mp3/' + filepath;
   var filename = path.basename(file);
   var mimetype = mime.getType(file);
-  res.setHeader('Content-disposition', 'attachment; filename=RzkyFdlh '+type.toUpperCase()+' Downloader - ' + filename);
+  res.setHeader('Content-disposition', 'attachment; filename=RzkyFdlh '+quality+' '+type.toUpperCase()+' Downloader - ' + filename);
   res.setHeader('Content-type', mimetype);
   var filestream = fs.createReadStream(file);
   return filestream.pipe(res);
