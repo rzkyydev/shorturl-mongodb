@@ -118,7 +118,7 @@ app.post('/ytdl/downloadmp3',async (req, res) => {
   if (!urlny.includes('youtu')) return res.json({status: false, message: 'link youtube invalid'})
   if (!isUrl(req.body.url)) return res.json({status: false, message: 'link invalid'})
   try {
-  var yt = type == 'audio' ? await y2mateA(req.body.url, quality.includes('p') ? '256' : quality ) : await y2mateV(req.body.url, quality.includes('p') ? quality.replace(/p/gi,'') : '1080')
+  var yt = type == 'audio' ? await y2mateA(req.body.url, ['256','128'].includes(quality) ? quality : '256' ) : await y2mateV(req.body.url, ['144','1080','480','720','360','240'].includes(quality) ? quality : '1080')
   var link = yt[0].link
   var judul = yt[0].judul
   var filepath = yt[0].output
