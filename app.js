@@ -130,6 +130,7 @@ app.post('/ytdl/downloadmp3',async (req, res) => {
   var filestream = fs.createReadStream(file);
   return filestream.pipe(res);
   } catch(e) {
+        console.error(e)
   	res.json({status: false, error: String(e)})
   }
 });
@@ -137,6 +138,7 @@ app.use('/ytdl', async(req, res) => {
 let ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket.remoteAddress || req.ip || req.connection.remoteAddress
 var visit = await fetchJson(`https://api.countapi.xyz/hit/sl.rzkyfdlh.tech`)
 token = makeid(18)
+if(req.method == "POST") return res.redirect("https://sl.rzkyfdlh.tech/ytdl")
 res.render(__dirname + '/public/ytdl/index.ejs', { visit: visit.value, ip, token })
 })
 app.use("/delete/:id", async (req, res) => {
