@@ -164,7 +164,7 @@ app.use('/ytdl', async(req, res) => {
 let ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket.remoteAddress || req.ip || req.connection.remoteAddress
 var visit = await fetchJson(`https://api.countapi.xyz/hit/sl.rzkyfdlh.tech`)
 token = makeid(18)
-res.render(__dirname + '/public/ytdl/index.ejs', { visit: visit.value, ip, token })
+res.render(__dirname + '/public/ytdl/index.ejs', { visit: visit.value, token })
 })
 
 app.use("/delete/:id", async (req, res) => {
