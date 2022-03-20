@@ -13,7 +13,7 @@ const express = require("express"),
   db2 = database.get("html-gen");
 
 const app = express();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 
 const fetchJson = (url, options) =>
   new Promise(async (resolve, reject) => {
