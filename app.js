@@ -87,7 +87,7 @@ app.get("/", async (req, res) => {
   let jumlahdb = await db.count();
   res.render(__dirname + "/public/index.pug", { jumlahdb });
 });
-app.get("/pug", (req, res) => {
+app.get("/pug", async(req, res) => {
 console.log(res)
 anu = await pug.render('h1 hallow')
 res.send(anu)
