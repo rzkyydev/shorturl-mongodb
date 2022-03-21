@@ -9,6 +9,7 @@ const express = require("express"),
   path = require('path'),
   fetch = require('node-fetch'),
   mime = require('mime'),
+  pug = require('pug'),
   { y2mateA, y2mateV } = require('./lib/y2mate')
   db2 = database.get("html-gen");
 
@@ -88,7 +89,7 @@ app.get("/", async (req, res) => {
 });
 app.get("/pug", (req, res) => {
 console.log(res)
-res.send(`h1 hallow`)
+pug.render('h1 hallow')
 })
 app.get("/data", async (req, res) => {
   const teksnya = req.query.data;
