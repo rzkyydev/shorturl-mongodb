@@ -11,7 +11,8 @@ const express = require("express"),
   mime = require('mime'),
   pug = require('pug'),
   { y2mateA, y2mateV } = require('./lib/y2mate')
-  db2 = database.get("html-gen");
+  db2 = database.get("html-gen"),
+  db3 = database.get("pug-gen");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -87,9 +88,8 @@ app.get("/", async (req, res) => {
   let jumlahdb = await db.count();
   res.render(__dirname + "/public/index.pug", { jumlahdb });
 });
-app.get("/pug", async(req, res) => {
-console.log(res)
-anu = await pug.render('h1 hallow')
+app.get("/pug/:id", async(req, res) => {
+anu = await pug.render()
 res.send(anu)
 })
 app.get("/data", async (req, res) => {
@@ -197,6 +197,34 @@ app.use("/delete/:id", async (req, res) => {
   });
 });
 
+app.use("/pug/delete/:id", async (req, res) => {
+  db3.findOne({
+    delete: req.params.id,
+  }).then((result) => {
+    if (result == null)
+      return res.status(404).json({
+        status: false,
+        message: "ID not found",
+      });
+    if (req.method == "POST") {
+      db3.findOneAndDelete({
+        delete: req.params.id,
+      }).then((result) => {
+        if (result == null)
+          return res.status(404).json({
+            status: false,
+            message: "ID not found",
+          });
+        else
+          res.status(200).json({
+            status: true,
+            message: "Success delete pug code",
+          });
+      });
+    } else res.sendFile(__dirname + "/public/delete.html");
+  });
+});
+
 app.use("/web/delete/:id", async (req, res) => {
   db2.findOne({
     delete: req.params.id,
@@ -239,6 +267,15 @@ app.get("/web/:id", async (req, res, next) => {
   }).then((result) => {
     if (result == null) return next();
     else res.send(result.code.toString('html'));
+  });
+});
+
+app.get("/pug/:id", async (req, res, next) => {
+  db3.findOne({
+    id: req.params.id,
+  }).then((result) => {
+    if (result == null) return next();
+    else res.send(result.code);
   });
 });
 
@@ -293,6 +330,52 @@ app.get("/create", async (req, res) => {
       });
     });
 });
+app.get("/createpug", async (req, res) => {
+  const pugnya = req.query.code,
+    nameny = req.query.name;
+  console.log(req.query.code);
+  if (!pugnya)
+    return res.status(400).json({
+      status: false,
+      message: "Masukkan parameter code pug",
+    });
+  const htmlnya = await pug.render(pugnya)
+  const idnya = nameny ? nameny : makeid(4);
+  const delete_idnya = makeid(18);
+  const checknya = await db3.findOne({
+    id: idnya,
+  });
+  if (checknya)
+    return res.status(400).json({
+      status: false,
+      message:
+        "Name tersebut sudah ada, silahkan coba lagi atau ganti dengan yang lain",
+    });
+  db3
+    .insert({
+      id: idnya,
+      code: htmlnya,
+      delete: delete_idnya,
+    })
+    .then(() =>
+      res.status(200).json({
+        status: true,
+        creator: "RzkyFdlh",
+        type: "pug",
+        result: {
+          url: "https://sl.rzkyfdlh.tech/pug/" + idnya,
+          delete: "https://sl.rzkyfdlh.tech/pug/delete/" + delete_idnya,
+        },
+      })
+    )
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        status: false,
+        message: "Internal server error",
+      });
+    });
+});
 app.get("/createhtml", async (req, res) => {
   const htmlny = req.query.code,
     nameny = req.query.name;
@@ -324,6 +407,7 @@ app.get("/createhtml", async (req, res) => {
       res.status(200).json({
         status: true,
         creator: "RzkyFdlh",
+        type: "html",
         result: {
           url: "https://sl.rzkyfdlh.tech/web/" + idny,
           delete: "https://sl.rzkyfdlh.tech/web/delete/" + delete_idny,
