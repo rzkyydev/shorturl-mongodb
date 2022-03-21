@@ -89,7 +89,8 @@ app.get("/", async (req, res) => {
 });
 app.get("/pug", (req, res) => {
 console.log(res)
-pug.render('h1 hallow')
+anu = await pug.render('h1 hallow')
+res.send(anu)
 })
 app.get("/data", async (req, res) => {
   const teksnya = req.query.data;
