@@ -335,7 +335,11 @@ app.get("/createpug", async (req, res) => {
       status: false,
       message: "Masukkan parameter code pug",
     });
+  try {
   const htmlnya = await pug.render(pugnya)
+  } catch(e) {
+      return res.json({status:false, error: String(e)})
+}
   const idnya = nameny ? nameny : makeid(4);
   const delete_idnya = makeid(18);
   const checknya = await db3.findOne({
