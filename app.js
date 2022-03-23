@@ -337,9 +337,7 @@ app.get("/createpug", async (req, res) => {
     });
   try {
   const htmlnya = await pug.render(pugnya)
-  } catch(e) {
-      return res.json({status:false, error: String(e)})
-}
+
   const idnya = nameny ? nameny : makeid(4);
   const delete_idnya = makeid(18);
   const checknya = await db3.findOne({
@@ -375,6 +373,9 @@ app.get("/createpug", async (req, res) => {
         message: "Internal server error",
       });
     });
+  } catch(e) {
+      return res.json({status:false, error: String(e)})
+}
 });
 app.get("/createhtml", async (req, res) => {
   const htmlny = req.query.code,
