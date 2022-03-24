@@ -107,8 +107,10 @@ app.get("/", async (req, res) => {
 
 
 app.use('/encjavascript', async(req, res) => {
+
 try {
 const code = decodeURIComponent(req.query.code)
+if(!code) return res.json({status: false, message: "masukan code javascript"})
 var obfuscationResult = obfus.obfuscate(code,{
         compact: true,
         controlFlowFlattening: true,
