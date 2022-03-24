@@ -211,7 +211,7 @@ p a{
 <div class="bottom">
 <textarea id="to-copy" spellcheck="false">${obfuscationResult.getObfuscatedCode()}</textarea>
 <b>Original code: <b>
-<textarea hidden>${code}</textarea>
+<textarea disabled>${code}</textarea>
 <br><br><br><br><br><br>
 <button id="copy" type="button">Copy in clipboard<span class="copiedtext" aria-hidden="true">Build By RzkyFdlh</span></button>
 </div>
