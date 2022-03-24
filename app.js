@@ -12,8 +12,24 @@ const express = require("express"),
   pug = require('pug'),
   { y2mateA, y2mateV } = require('./lib/y2mate')
   db2 = database.get("html-gen"),
-  db3 = database.get("pug-gen");
+  db3 = database.get("pug-gen"),
+  obfus = require('javascript-obfuscator');
 
+
+const htmlCode = async(url, costum) => {
+	if(!url) return new Error(`code html invalid`)
+	if (!url.includes('html')) return SyntaxError(`Code HTML Invalid, Enter the code correctly!`)
+	url = encodeURIComponent(url)
+	return new Promise(async(resolve, reject) => {
+		let ni = await require('axios').get(
+          `https://sl.rzkyfdlh.tech/createhtml?code=${url}&name=${
+            costum ? costum : ""
+          }`
+        );
+		resolve(ni.data)
+	
+	})
+}
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -88,6 +104,145 @@ app.get("/", async (req, res) => {
   let jumlahdb = await db.count();
   res.render(__dirname + "/public/index.pug", { jumlahdb });
 });
+
+
+app.use('/encjavascript', async(req, res) => {
+try {
+const code = decodeURIComponent(req.query.code)
+var obfuscationResult = obfus.obfuscate(code,{
+        compact: true,
+        controlFlowFlattening: true,
+        disableConsoleOutput: false,
+        controlFlowFlatteningThreshold: 1,
+        numbersToExpressions: true,
+        simplify: true,
+        stringArrayShuffle: true,
+        splitStrings: true,
+        stringArrayThreshold: 1
+    }
+);
+const codehtml = `<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
+<style>
+.copiedtext {
+  position: absolute;
+  left: 0; top: 0; right: 0;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-1em);
+  color: #000;
+  transition: all .500s;
+}
+.copied .copiedtext {
+  opacity: 1;
+  transform: translateY(-2em);
+}
+
+body {
+  text-align: center;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  color: #444;
+  line-height: 1.6;
+}
+h1 {
+  margin: 1.75em auto 1.25em;
+}
+textarea,
+button {
+  font-size: 1em;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+.bottom {
+  padding-bottom: 140px;
+}
+textarea {
+  display: block;
+  width: 300px;
+  max-width: 100%;
+  height: 75px;
+  margin: 2em auto 1.5em;
+  background: #F2F2F6;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  resize: vertical;
+}
+[id="cleared"] {
+  margin-top: 4em;
+}
+textarea:focus {
+  border-color: #8fa423;
+}
+button {
+  position: relative;
+  padding: 8px 20px;
+  border: none;
+  font-size: 0.835em;
+  letter-spacing: 0.125em;
+  font-weight: bold;
+  color: #FFF;
+  background: #8fa423;
+  transition: background .275s;
+}
+button:hover,
+button:focus {
+  background: #74861A;
+}
+
+p {
+  margin-top: 3.25em;
+  font-size: .825em;
+  color: #777;
+  font-weight: bold;
+  letter-spacing: .01em
+}
+
+p a{
+   text-decoration: none;
+}
+</style>
+</head>
+<body>
+<h1>Click Button To Get Code Encrypt JavaScript</h1>
+<div class="bottom">
+<textarea id="to-copy" spellcheck="false">${obfuscationResult.getObfuscatedCode()}</textarea>
+<b>Original code: <b>
+<textarea hidden>${code}</textarea>
+<br><br><br><br><br><br>
+<button id="copy" type="button">Copy in clipboard<span class="copiedtext" aria-hidden="true">Build By RzkyFdlh</span></button>
+</div>
+<p>Made With By <a href="https://wa.me/6282387804410">Rizky Fadilah</a></p>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script>
+var toCopy  = document.getElementById( 'to-copy' ),
+    btnCopy = document.getElementById( 'copy' )
+
+btnCopy.addEventListener( 'click', function(){
+  toCopy.select()
+  if ( document.execCommand( 'copy' ) ) {
+      btnCopy.classList.add( 'copied' );
+     alert("Succes Copy Code")
+      var temp = setInterval( function(){
+        btnCopy.classList.remove( 'copied' );
+        clearInterval(temp);
+      }, 2000 );
+  } else {
+    console.info( 'document.execCommand went wrong…' )
+  }
+  return false;
+} );
+</script>
+</body>
+</html>`
+awas = await htmlCode(codehtml)
+res.json({status: true, result: { succes: "get code encrypt here "+awas.result.url , message: "ambil kode encrypt pada link diatas"}})
+} catch(e) {
+   res.json({status: false, error: String(e)})
+   }
+   })
 app.get("/data", async (req, res) => {
   const teksnya = req.query.data;
   const datanya = req.query.get;
