@@ -32,6 +32,7 @@
     "monk": "^7.3.4",
     "http": "latest",
     "path": "latest",
+    "javascript-obfuscator": "latest",
     "mime": "^3.0.0",
     "node-fetch": "^2.6.7",
     "axios": "latest",
