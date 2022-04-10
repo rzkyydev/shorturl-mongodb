@@ -249,7 +249,7 @@ app.get("/data", async (req, res) => {
   const teksnya = req.query.data;
   const datanya = req.query.get;
   const apikey = req.query.apikey;
-  if (!apikey) return res.json({ status: false, message: "ngapain cuy" });
+  if (!apikey) return res.json({ status: true, value: db.count() });
   if (apikey !== "ikiapi")
     return res.json({ status: false, message: "ngapain cuy" });
   try {
