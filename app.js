@@ -5,31 +5,30 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   database = require("./db/mongo"),
   db = database.get("short-url"),
-  fs = require('fs'),
-  path = require('path'),
-  fetch = require('node-fetch'),
-  mime = require('mime'),
-  pug = require('pug'),
-  { y2mateA, y2mateV } = require('./lib/y2mate')
-  db2 = database.get("html-gen"),
-  db3 = database.get("pug-gen"),
-  obfus = require('javascript-obfuscator');
+  fs = require("fs"),
+  path = require("path"),
+  fetch = require("node-fetch"),
+  mime = require("mime"),
+  pug = require("pug"),
+  { y2mateA, y2mateV } = require("./lib/y2mate");
+(db2 = database.get("html-gen")),
+  (db3 = database.get("pug-gen")),
+  (obfus = require("javascript-obfuscator"));
 
-
-const htmlCode = async(url, costum) => {
-	if(!url) return new Error(`code html invalid`)
-	if (!url.includes('html')) return SyntaxError(`Code HTML Invalid, Enter the code correctly!`)
-	url = encodeURIComponent(url)
-	return new Promise(async(resolve, reject) => {
-		let ni = await require('axios').get(
-          `https://sl.rzkyfdlh.tech/createhtml?code=${url}&name=${
-            costum ? costum : ""
-          }`
-        );
-		resolve(ni.data)
-	
-	})
-}
+const htmlCode = async (url, costum) => {
+  if (!url) return new Error(`code html invalid`);
+  if (!url.includes("html"))
+    return SyntaxError(`Code HTML Invalid, Enter the code correctly!`);
+  url = encodeURIComponent(url);
+  return new Promise(async (resolve, reject) => {
+    let ni = await require("axios").get(
+      `https://sl.rzkyfdlh.tech/createhtml?code=${url}&name=${
+        costum ? costum : ""
+      }`
+    );
+    resolve(ni.data);
+  });
+};
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -43,7 +42,7 @@ const fetchJson = (url, options) =>
       .catch((err) => {
         reject(err);
       });
-  })
+  });
 
 const isUrl = (url) => {
   return url.match(
@@ -56,7 +55,7 @@ const isUrl = (url) => {
 const getBuffer = async (url, options) => {
   try {
     options ? options : {};
-    const res = await require('axios')({
+    const res = await require("axios")({
       method: "get",
       url,
       headers: {
@@ -70,7 +69,7 @@ const getBuffer = async (url, options) => {
   } catch (e) {
     console.log(`Error : ${e}`);
   }
-}
+};
 function makeid(length) {
   let result = "";
   const characters =
@@ -105,25 +104,23 @@ app.get("/", async (req, res) => {
   res.render(__dirname + "/public/index.pug", { jumlahdb });
 });
 
-
-app.use('/encjavascript', async(req, res) => {
-
-try {
-const code = decodeURIComponent(req.query.code)
-if(!code) return res.json({status: false, message: "masukan code javascript"})
-var obfuscationResult = obfus.obfuscate(code,{
-        compact: true,
-        controlFlowFlattening: true,
-        disableConsoleOutput: false,
-        controlFlowFlatteningThreshold: 1,
-        numbersToExpressions: true,
-        simplify: true,
-        stringArrayShuffle: true,
-        splitStrings: true,
-        stringArrayThreshold: 1
-    }
-);
-const codehtml = `<!DOCTYPE html>
+app.use("/encjavascript", async (req, res) => {
+  try {
+    const code = decodeURIComponent(req.query.code);
+    if (!code)
+      return res.json({ status: false, message: "masukan code javascript" });
+    var obfuscationResult = obfus.obfuscate(code, {
+      compact: true,
+      controlFlowFlattening: true,
+      disableConsoleOutput: false,
+      controlFlowFlatteningThreshold: 1,
+      numbersToExpressions: true,
+      simplify: true,
+      stringArrayShuffle: true,
+      splitStrings: true,
+      stringArrayThreshold: 1,
+    });
+    const codehtml = `<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -238,13 +235,19 @@ btnCopy.addEventListener( 'click', function(){
 } );
 </script>
 </body>
-</html>`
-awas = await htmlCode(codehtml)
-res.json({status: true, result: { succes: "get code encrypt here "+awas.result.url , message: "ambil kode encrypt pada link diatas"}})
-} catch(e) {
-   res.json({status: false, error: String(e)})
-   }
-   })
+</html>`;
+    awas = await htmlCode(codehtml);
+    res.json({
+      status: true,
+      result: {
+        succes: "get code encrypt here " + awas.result.url,
+        message: "ambil kode encrypt pada link diatas",
+      },
+    });
+  } catch (e) {
+    res.json({ status: false, error: String(e) });
+  }
+});
 app.get("/data", async (req, res) => {
   const teksnya = req.query.data;
   const datanya = req.query.get;
@@ -266,61 +269,102 @@ app.get("/data", async (req, res) => {
   }
 });
 var token;
-app.post('/ytdl/downloadmp3',async (req, res) => {
-  var urlny = req.body.url
-  var type = req.body.type
-  var quality = req.body.quality
-  if(!req.body.token.includes(token)) return res.json({
-    status: false,
-    message: "Page not found",
-  });
-  if (!urlny.includes('youtu')) return res.json({status: false, message: 'link youtube invalid'})
-  if (!isUrl(req.body.url)) return res.json({status: false, message: 'link invalid'})
+app.post("/ytdl/downloadmp3", async (req, res) => {
+  var urlny = req.body.url;
+  var type = req.body.type;
+  var quality = req.body.quality;
+  if (!req.body.token.includes(token))
+    return res.json({
+      status: false,
+      message: "Page not found",
+    });
+  if (!urlny.includes("youtu"))
+    return res.json({ status: false, message: "link youtube invalid" });
+  if (!isUrl(req.body.url))
+    return res.json({ status: false, message: "link invalid" });
   try {
-  var yt = type == 'audio' ? await y2mateA(req.body.url, ['256','128'].includes(quality) ? quality : '256' ) : await y2mateV(req.body.url, ['144','1080','480','720','360','240'].includes(quality) ? quality : '1080')
-  var link = yt[0].link
-  var judul = yt[0].judul
-  var filepath = yt[0].output
-  fs.writeFileSync(`./mp3/${filepath}`,await getBuffer(link))
-  var file = __dirname + '/mp3/' + filepath;
-  var filename = path.basename(file);
-  var mimetype = mime.getType(file);
-  res.setHeader('Content-disposition', 'attachment; filename=RzkyFdlh '+quality+' '+type.toUpperCase()+' Downloader - ' + filename);
-  res.setHeader('Content-type', mimetype);
-  var filestream = fs.createReadStream(file);
-  return filestream.pipe(res);
-  //return res.redirect("https://sl.rzkyfdlh.tech/ytdl")
-  } catch(e) {
-        console.error(e)
-  	res.json({status: false, error: String(e)})
+    var yt =
+      type == "audio"
+        ? await y2mateA(
+            req.body.url,
+            ["256", "128"].includes(quality) ? quality : "256"
+          )
+        : await y2mateV(
+            req.body.url,
+            ["144", "1080", "480", "720", "360", "240"].includes(quality)
+              ? quality
+              : "1080"
+          );
+    var link = yt[0].link;
+    var judul = yt[0].judul;
+    var filepath = yt[0].output;
+    fs.writeFileSync(`./mp3/${filepath}`, await getBuffer(link));
+    var file = __dirname + "/mp3/" + filepath;
+    var filename = path.basename(file);
+    var mimetype = mime.getType(file);
+    res.setHeader(
+      "Content-disposition",
+      "attachment; filename=RzkyFdlh " +
+        quality +
+        " " +
+        type.toUpperCase() +
+        " Downloader - " +
+        filename
+    );
+    res.setHeader("Content-type", mimetype);
+    var filestream = fs.createReadStream(file);
+    return filestream.pipe(res);
+    //return res.redirect("https://sl.rzkyfdlh.tech/ytdl")
+  } catch (e) {
+    console.error(e);
+    res.json({ status: false, error: String(e) });
   }
 });
-app.post('/ytdl/result', async(req,res) => {
-var urlny = req.body.url
-  if(!req.body.token.includes(token)) return res.json({
-    status: false,
-    message: "Page not found",
-  });
-  if (!urlny.includes('youtu')) return res.json({status: false, message: 'link youtube invalid'})
-  if (!isUrl(req.body.url)) return res.json({status: false, message: 'link invalid'})
+app.post("/ytdl/result", async (req, res) => {
+  var urlny = req.body.url;
+  if (!req.body.token.includes(token))
+    return res.json({
+      status: false,
+      message: "Page not found",
+    });
+  if (!urlny.includes("youtu"))
+    return res.json({ status: false, message: "link youtube invalid" });
+  if (!isUrl(req.body.url))
+    return res.json({ status: false, message: "link invalid" });
   try {
-  var yt =  await y2mateA(req.body.url, '256')
-var yt2 = await y2mateV(req.body.url, '1080')
-  var link = yt[0].link
-  var urlna = await fetchJson(`https://sl.rzkyfdlh.tech/create?url=${link}`)
-  var judul = yt[0].judul
-  var filepath = yt[0].output
-res.render(__dirname + '/public/ytdl/result.ejs',{ title: judul, img: yt[0].thumb, token, sizeaudio: yt[0].size, sizevideo: yt2[0].size,link: urlna.result.url, url: req.body.url })
-} catch(e) {
-	return res.json({status: false, message: String(e)})
-	}
-	})
-app.use('/ytdl', async(req, res) => {
-let ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket.remoteAddress || req.ip || req.connection.remoteAddress
-var visit = await fetchJson(`https://api.countapi.xyz/hit/sl.rzkyfdlh.tech`)
-token = makeid(18)
-res.render(__dirname + '/public/ytdl/index.ejs', { visit: visit.value, token })
-})
+    var yt = await y2mateA(req.body.url, "256");
+    var yt2 = await y2mateV(req.body.url, "1080");
+    var link = yt[0].link;
+    var urlna = await fetchJson(`https://sl.rzkyfdlh.tech/create?url=${link}`);
+    var judul = yt[0].judul;
+    var filepath = yt[0].output;
+    res.render(__dirname + "/public/ytdl/result.ejs", {
+      title: judul,
+      img: yt[0].thumb,
+      token,
+      sizeaudio: yt[0].size,
+      sizevideo: yt2[0].size,
+      link: urlna.result.url,
+      url: req.body.url,
+    });
+  } catch (e) {
+    return res.json({ status: false, message: String(e) });
+  }
+});
+app.use("/ytdl", async (req, res) => {
+  let ip =
+    req.headers["x-forwarded-for"] ||
+    req.headers["x-real-ip"] ||
+    req.socket.remoteAddress ||
+    req.ip ||
+    req.connection.remoteAddress;
+  var visit = await fetchJson(`https://api.countapi.xyz/hit/sl.rzkyfdlh.tech`);
+  token = makeid(18);
+  res.render(__dirname + "/public/ytdl/index.ejs", {
+    visit: visit.value,
+    token,
+  });
+});
 
 app.use("/delete/:id", async (req, res) => {
   db.findOne({
@@ -351,59 +395,67 @@ app.use("/delete/:id", async (req, res) => {
 });
 
 app.use("/pug/delete/:id", async (req, res) => {
-  db3.findOne({
-    delete: req.params.id,
-  }).then((result) => {
-    if (result == null)
-      return res.status(404).json({
-        status: false,
-        message: "ID not found",
-      });
-    if (req.method == "POST") {
-      db3.findOneAndDelete({
-        delete: req.params.id,
-      }).then((result) => {
-        if (result == null)
-          return res.status(404).json({
-            status: false,
-            message: "ID not found",
+  db3
+    .findOne({
+      delete: req.params.id,
+    })
+    .then((result) => {
+      if (result == null)
+        return res.status(404).json({
+          status: false,
+          message: "ID not found",
+        });
+      if (req.method == "POST") {
+        db3
+          .findOneAndDelete({
+            delete: req.params.id,
+          })
+          .then((result) => {
+            if (result == null)
+              return res.status(404).json({
+                status: false,
+                message: "ID not found",
+              });
+            else
+              res.status(200).json({
+                status: true,
+                message: "Success delete pug code",
+              });
           });
-        else
-          res.status(200).json({
-            status: true,
-            message: "Success delete pug code",
-          });
-      });
-    } else res.sendFile(__dirname + "/public/delete.html");
-  });
+      } else res.sendFile(__dirname + "/public/delete.html");
+    });
 });
 
 app.use("/web/delete/:id", async (req, res) => {
-  db2.findOne({
-    delete: req.params.id,
-  }).then((result) => {
-    if (result == null)
-      return res.status(404).json({
-        status: false,
-        message: "ID not found",
-      });
-    if (req.method == "POST") {
-      db2.findOneAndDelete({
-        delete: req.params.id,
-      }).then((result) => {
-        if (result == null)
-          return res.status(404).json({
-            status: false,
-            message: "ID not found",
+  db2
+    .findOne({
+      delete: req.params.id,
+    })
+    .then((result) => {
+      if (result == null)
+        return res.status(404).json({
+          status: false,
+          message: "ID not found",
+        });
+      if (req.method == "POST") {
+        db2
+          .findOneAndDelete({
+            delete: req.params.id,
+          })
+          .then((result) => {
+            if (result == null)
+              return res.status(404).json({
+                status: false,
+                message: "ID not found",
+              });
+            else
+              res.status(200).json({
+                status: true,
+                message: "Success delete web",
+              });
           });
-        else
-          res.status(200).json({
-            status: true,
-            message: "Success delete web",
-          });
-      });
-    } else res.sendFile(__dirname + "/public/delete.html");
-  });
+      } else res.sendFile(__dirname + "/public/delete.html");
+    });
 });
 
 app.get("/:id", async (req, res, next) => {
@@ -415,21 +467,25 @@ app.get("/:id", async (req, res, next) => {
   });
 });
 app.get("/web/:id", async (req, res, next) => {
-  db2.findOne({
-    id: req.params.id,
-  }).then((result) => {
-    if (result == null) return next();
-    else res.send(result.code.toString('html'));
-  });
+  db2
+    .findOne({
+      id: req.params.id,
+    })
+    .then((result) => {
+      if (result == null) return next();
+      else res.send(result.code.toString("html"));
+    });
 });
 
 app.get("/pug/:id", async (req, res, next) => {
-  db3.findOne({
-    id: req.params.id,
-  }).then((result) => {
-    if (result == null) return next();
-    else res.send(result.code);
-  });
+  db3
+    .findOne({
+      id: req.params.id,
+    })
+    .then((result) => {
+      if (result == null) return next();
+      else res.send(result.code);
+    });
 });
 
 app.get("/create", async (req, res) => {
@@ -493,46 +549,46 @@ app.get("/createpug", async (req, res) => {
       message: "Masukkan parameter code pug",
     });
   try {
-  const htmlnya = await pug.render(pugnya)
+    const htmlnya = await pug.render(pugnya);
 
-  const idnya = nameny ? nameny : makeid(4);
-  const delete_idnya = makeid(18);
-  const checknya = await db3.findOne({
-    id: idnya,
-  });
-  if (checknya)
-    return res.status(400).json({
-      status: false,
-      message:
-        "Name tersebut sudah ada, silahkan coba lagi atau ganti dengan yang lain",
-    });
-  db3
-    .insert({
+    const idnya = nameny ? nameny : makeid(4);
+    const delete_idnya = makeid(18);
+    const checknya = await db3.findOne({
       id: idnya,
-      code: htmlnya,
-      delete: delete_idnya,
-    })
-    .then(() =>
-      res.status(200).json({
-        status: true,
-        creator: "RzkyFdlh",
-        type: "pug",
-        result: {
-          url: "https://sl.rzkyfdlh.tech/pug/" + idnya,
-          delete: "https://sl.rzkyfdlh.tech/pug/delete/" + delete_idnya,
-        },
-      })
-    )
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({
-        status: false,
-        message: "Internal server error",
-      });
     });
-  } catch(e) {
-      return res.json({status:false, error: String(e)})
-}
+    if (checknya)
+      return res.status(400).json({
+        status: false,
+        message:
+          "Name tersebut sudah ada, silahkan coba lagi atau ganti dengan yang lain",
+      });
+    db3
+      .insert({
+        id: idnya,
+        code: htmlnya,
+        delete: delete_idnya,
+      })
+      .then(() =>
+        res.status(200).json({
+          status: true,
+          creator: "RzkyFdlh",
+          type: "pug",
+          result: {
+            url: "https://sl.rzkyfdlh.tech/pug/" + idnya,
+            delete: "https://sl.rzkyfdlh.tech/pug/delete/" + delete_idnya,
+          },
+        })
+      )
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          status: false,
+          message: "Internal server error",
+        });
+      });
+  } catch (e) {
+    return res.json({ status: false, error: String(e) });
+  }
 });
 app.get("/createhtml", async (req, res) => {
   const htmlny = req.query.code,
@@ -633,8 +689,8 @@ app.post("/create2", async (req, res) => {
 
 // Handling 404
 app.use(async function (req, res, next) {
-var visit = await fetchJson(`https://api.countapi.xyz/hit/anu.com`)
-  res.status(404).render(__dirname + '/public/404.ejs', { visit: visit.value })
+  var visit = await fetchJson(`https://api.countapi.xyz/hit/anu.com`);
+  res.status(404).render(__dirname + "/public/404.ejs", { visit: visit.value });
 });
 
 app.listen(port, () => {
