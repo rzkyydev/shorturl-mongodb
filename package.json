@@ -1,7 +1,7 @@
 {
-  "name": "url-shortener",
+  "name": "shorturl-mongodb",
   "version": "1.0.0",
-  "description": "Example URL-Shortener Using Expressjs and mongoDB",
+  "description": "short url with mongodb",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zennn08/url-shortener.git"
+    "url": "git+https://github.com/rzkyydev/shorurl-mongodb.git"
   },
   "keywords": [
     "url-shortener",
@@ -18,9 +18,9 @@
   "author": "aqulzz",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zennn08/url-shortener/issues"
+    "url": "https://github.com/rzkyydev/shorturl-mongodb/issues"
   },
-  "homepage": "https://github.com/zennn08/url-shortener#readme",
+  "homepage": "https://github.com/rzkyydev/shorturl-mongodb#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
