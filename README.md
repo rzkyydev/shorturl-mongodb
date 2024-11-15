@@ -38,9 +38,8 @@ var shorUrl = await axios.get("https://example.com/create", {
         custom: "websiteikyy"
     }
 })
-```
-
 console.log(shortUrl.data)
+```
 
 **Listing all Shortened URLs in DB:**
 
