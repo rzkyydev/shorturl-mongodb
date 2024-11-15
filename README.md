@@ -3,8 +3,8 @@
 _**No ribet, just axios!**_
 
 ## Installation
-# change url MongoDB in ./db/mongo.js with u url 
-# change domain and password in ./app.js with u domain and password
+### change url MongoDB in ./db/mongo.js with u url 
+### change [`domain`](https://github.com/rzkyydev/short/blob/b36a8c4c3c8689f1cdfada6c279a8bbf096541a5/app.js#L13) and [`password`](https://github.com/rzkyydev/short/blob/b36a8c4c3c8689f1cdfada6c279a8bbf096541a5/app.js#L14) in ./app.js with u domain and password
 ```bash
 $ git clone https://github.com/rzkyydev/shorturl-mongodb
 $ cd shorturl-mongodb
