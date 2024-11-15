@@ -1,7 +1,7 @@
 const monk = require('monk')
 
 // Connection URL
-var url = "mongodb+srv://iky:geh@cluster0.zgouv.mongodb.net";
+var url = "Url Database MongoDB";
 try {
     if (url == '') throw console.log('Cek konfigurasi database, var url belum diisi');
 } catch (e) {
