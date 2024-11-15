@@ -1,12 +1,13 @@
 > Node.js URL Shortener backend by MongoDB
 
-_**No Callbacks, just Promises!**_
+_**No ribet, just axios!**_
 
 ## Installation
-
-```bash
 # change url MongoDB in ./db/mongo.js with u url 
 # change domain and password in ./app.js with u domain and password
+```bash
+$ git clone https://github.com/rzkyydev/shorturl-mongodb
+$ cd shorturl-mongodb
 $ npm install 
 $ node app.js
 ```
