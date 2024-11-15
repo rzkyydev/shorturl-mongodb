@@ -38,6 +38,7 @@ var shorUrl = await axios.get("https://example.com/create", {
         custom: "websiteikyy"
     }
 })
+```
 
 console.log(shortUrl.data)
 
