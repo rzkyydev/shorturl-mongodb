@@ -1,6 +1,4 @@
-> Node.js URL Shortener backend by MongoDB
-
-_**No ribet, just axios!**_
+# Node.js URL Shortener with MongoDB
 
 ## Installation
 - change url MongoDB in [`./db/mongo.js`](https://github.com/rzkyydev/short/blob/7f8e5b5eeb0444d740b4cd2760944cab6dc94f92/db/mongo.js#L4) with u url 
