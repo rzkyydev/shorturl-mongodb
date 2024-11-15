@@ -84,4 +84,4 @@ console.log(getDB.data)
 # Thanks to
 
 * <a href="https://github.com/rzkyydev"><img alt="GitHub" src="https://img.shields.io/badge/rzkyydev-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a>
-* <a href="https://www.mongodb.com/"><img alt="GitHub" src="https://img.shields.io/badge/rzkyydev-%23121011.svg?&style=for-the-badge&logo=mongodb&logoColor=white"/></a>
+* <a href="https://www.mongodb.com/"><img alt="GitHub" src="https://img.shields.io/badge/MongoDB-%23121011.svg?&style=for-the-badge&logo=mongodb&logoColor=white"/></a>
