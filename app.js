@@ -135,7 +135,7 @@ app.get("/:id", async (req, res, next) => {
 
 app.get("/create", async (req, res) => {
     const ur = req.originalUrl,
-        costum = req.query.costum,
+        custom = req.query.custom,
         url = ur.replace("/create?url=", "").split("&costum")[0];
     console.log(req.originalUrl);
     if (!url)
@@ -149,7 +149,7 @@ app.get("/create", async (req, res) => {
             status: false,
             message: "Harap masukkan url parameter yang valid",
         });
-    const id = costum ? costum : makeid(6);
+    const id = custom ? custom : makeid(6);
     const delete_id = makeid(18);
     const check = await db.findOne({
         id,
