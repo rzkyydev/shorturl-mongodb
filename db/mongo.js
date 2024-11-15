@@ -1,7 +1,7 @@
 const monk = require('monk')
 
 // Connection URL
-var url = "Url Database MongoDB";
+var url = "mongodb://localhost/short";
 try {
     if (url == '') throw console.log('Cek konfigurasi database, var url belum diisi');
 } catch (e) {
